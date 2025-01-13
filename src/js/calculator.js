@@ -30,16 +30,20 @@ buttons.forEach(button => {
 
         if (value) {
             if (['+', '-', '*', '/'].includes(value)) {
-                // Prevent consecutive operators
-                if (operatorPressed) return;
-                operatorPressed = true;
+                // If the last character is an operator, replace it with the new operator
+                if (operatorPressed) {
+                    currentInput = currentInput.slice(0, -1); // Remove the last operator
+                }
+                operatorPressed = true; // Mark that the last pressed button was an operator
             } else {
-                operatorPressed = false;
+                operatorPressed = false; // Reset if the value is not an operator
             }
 
             // Update the input and display
             currentInput += value;
             display.value = currentInput;
+            
+            display.scrollLeft = display.scrollWidth;
         }
     });
 });
